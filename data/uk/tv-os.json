@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T03:25:06+00:00",
+  "generated_at": "2026-09-30T04:34:33+00:00",
   "source": "sample",
   "market": "uk",
   "marketplace": "amazon.co.uk",
@@ -39,7 +39,7 @@
       "count": 3,
       "avg_price": 449.0
     },
-    "Unknown": {
+    "Titan OS": {
       "count": 1,
       "avg_price": 349.0
     }
@@ -517,7 +517,7 @@
       "is_prime": true,
       "bestseller": false,
       "query": "oled tv",
-      "os": "Unknown",
+      "os": "Titan OS",
       "os_inferred": false,
       "size": 50
     },
