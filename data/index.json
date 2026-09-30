@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T04:34:33+00:00",
+  "updated_at": "2026-09-30T04:42:59+00:00",
   "markets": [
     {
       "code": "us",
@@ -7,7 +7,7 @@
       "domain": "amazon.com",
       "currency": "USD",
       "symbol": "$",
-      "generated_at": "2026-09-30T04:34:33+00:00",
+      "generated_at": "2026-09-30T04:42:59+00:00",
       "total": 36
     },
     {
@@ -16,7 +16,7 @@
       "domain": "amazon.co.uk",
       "currency": "GBP",
       "symbol": "£",
-      "generated_at": "2026-09-30T04:34:33+00:00",
+      "generated_at": "2026-09-30T04:42:59+00:00",
       "total": 34
     }
   ]
