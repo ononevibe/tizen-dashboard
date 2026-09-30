@@ -47,19 +47,53 @@ MARKETS = {
 MARKET_CODES = [m.strip().lower() for m in (os.getenv("MARKETPLACES") or "us,uk").split(",") if m.strip()]
 
 # 아마존 자체 "운영체제" 필터가 적용된 검색 URL. 여기서 나온 제품은 제품명과 상관없이 해당 OS로 확정 분류.
-# 아마존 검색 페이지에서 OS 필터를 건 뒤 주소를 복사해 넣으면 됩니다 (qid, crid 같은 세션 값은 지워도 됨).
-# 저장소 Variables 에 FILTER_URLS 를 JSON 으로 넣으면 아래 기본값 대신 사용됩니다.
-DEFAULT_FILTER_URLS = {
-    "uk": [
-        {"os": "Tizen", "pages": 2,
-         "url": "https://www.amazon.co.uk/s?k=tv&rh=p_n_g-101016028402111%3A205632524031&dc"},
-    ],
-}
+# 각 나라 아마존에서 TV 검색 → 왼쪽 "운영체제(Operating System)" 필터에서 Tizen 체크 → 주소 복사.
+#
+# 저장소 Variables 에 FILTER_URLS 를 아래처럼 한 줄에 하나씩 넣으면 됩니다 (마켓코드 OS 주소 [페이지수]):
+#   uk Tizen https://www.amazon.co.uk/s?k=tv&rh=p_n_g-101016028402111%3A205632524031 2
+#   de Tizen https://www.amazon.de/s?k=fernseher&rh=... 2
+#   de webOS https://www.amazon.de/s?k=fernseher&rh=...
+# qid, crid, sprefix, ref 같은 세션 값은 지우지 않아도 자동으로 제거됩니다. JSON 형식도 계속 지원합니다.
+DEFAULT_FILTER_URLS = """
+uk Tizen https://www.amazon.co.uk/s?k=tv&rh=p_n_g-101016028402111%3A205632524031 2
+"""
+SESSION_PARAMS = {"qid", "crid", "sprefix", "ref", "ds", "rnid", "dc", "qs", "pd_rd_r", "pd_rd_w", "pd_rd_wg", "pf_rd_p", "pf_rd_r", "th"}
+
+
+def clean_amazon_url(url: str) -> str:
+    from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+    u = urlsplit(url.strip())
+    q = [(k, v) for k, v in parse_qsl(u.query, keep_blank_values=True) if k not in SESSION_PARAMS]
+    return urlunsplit((u.scheme, u.netloc, u.path, urlencode(q), ""))
+
+
+def parse_filter_urls(text: str) -> dict:
+    text = (text or "").strip()
+    if not text:
+        return {}
+    if text.startswith("{"):
+        data = json.loads(text)
+        return {k.lower(): [{**f, "url": clean_amazon_url(f["url"])} for f in v] for k, v in data.items()}
+    out = {}
+    for line in text.splitlines():
+        parts = line.split()
+        if len(parts) < 3 or parts[0].startswith("#"):
+            continue
+        code, os_name, url = parts[0].lower(), parts[1], parts[2]
+        pages = int(parts[3]) if len(parts) > 3 and parts[3].isdigit() else 1
+        # OS 표기 정규화
+        os_name = {"tizen": "Tizen", "webos": "webOS", "googletv": "Google TV", "google": "Google TV",
+                   "firetv": "Fire TV", "fire": "Fire TV", "roku": "Roku TV", "vidaa": "VIDAA",
+                   "android": "Android TV", "titan": "Titan OS"}.get(os_name.lower().replace("_", ""), os_name)
+        out.setdefault(code, []).append({"os": os_name, "url": clean_amazon_url(url), "pages": pages})
+    return out
+
+
 try:
-    FILTER_URLS = json.loads(os.getenv("FILTER_URLS") or "null") or DEFAULT_FILTER_URLS
-except json.JSONDecodeError:
-    print("FILTER_URLS 변수가 올바른 JSON이 아닙니다. 기본값을 사용합니다.", file=sys.stderr)
-    FILTER_URLS = DEFAULT_FILTER_URLS
+    FILTER_URLS = parse_filter_urls(os.getenv("FILTER_URLS") or DEFAULT_FILTER_URLS)
+except Exception as e:
+    print(f"FILTER_URLS 변수를 읽을 수 없습니다 ({e}). 기본값을 사용합니다.", file=sys.stderr)
+    FILTER_URLS = parse_filter_urls(DEFAULT_FILTER_URLS)
 
 # ---------- OS 분류 ----------
 # (정규식, OS명) — 위에서부터 먼저 매칭되는 것을 채택. 제목/스펙 텍스트 기준.
@@ -88,11 +122,11 @@ BRAND_DEFAULT_OS = {
 }
 # Tizen 라이선스 브랜드 (Samsung 외). 대시보드에서 "파트너 브랜드"로 집계
 TIZEN_PARTNER_BRANDS = {"rca", "akai", "bauhn", "linsar", "vispera", "sunny", "axen", "eko", "qbell", "axdia",
-                        "hye", "cello", "tempo", "hkc", "atmaca"}
+                        "hye", "cello", "dyon", "tempo", "hkc", "atmaca"}
 BRAND_PATTERN = re.compile(
     r"\b(samsung|lg|sony|tcl|hisense|vizio|amazon|insignia|toshiba|roku|philips|panasonic|sharp|westinghouse|onn|element"
     r"|skyworth|xiaomi|jvc|bush|loewe|grundig|telefunken|thomson|metz|nokia|medion|continental edison|polaroid|cello"
-    r"|rca|akai|bauhn|linsar|vispera|sunny|axen|eko|qbell|axdia|konka|aiwa|hyundai|schneider|blaupunkt|kogan|chiq|haier|hye|cello|ferguson|mitchell & brown|avtex|veltech)\b",
+    r"|rca|akai|bauhn|linsar|vispera|sunny|axen|eko|qbell|axdia|konka|aiwa|hyundai|schneider|blaupunkt|kogan|chiq|haier|hye|cello|ferguson|mitchell & brown|avtex|veltech|dyon|strong|salora|smart tech|nabo)\b",
     re.I,
 )
 
@@ -272,6 +306,12 @@ def main():
         print(f"알 수 없는 마켓 코드: {unknown}. 사용 가능: {list(MARKETS)}", file=sys.stderr)
         sys.exit(1)
     print(f"마켓: {MARKET_CODES}, 데이터 소스: {provider or '샘플 파일'}, 검색어 {len(SEARCH_TERMS)}개")
+    for c in MARKET_CODES:
+        for f in FILTER_URLS.get(c, []):
+            print(f"  필터 URL [{c}] {f['os']} x{f.get('pages', 1)}쪽: {f['url'][:80]}")
+    missing = [c for c in MARKET_CODES if not FILTER_URLS.get(c)]
+    if missing:
+        print(f"  OS 필터 URL 없는 마켓: {missing} → 제품명 기반 분류만 사용 (Variables의 FILTER_URLS 에 추가 가능)")
     results = [r for r in (collect_market(c, provider, fetch) for c in MARKET_CODES) if r]
     if not results:
         print("수집된 마켓이 없습니다. RAINFOREST_API_KEY 를 등록하거나 data/sample-products-<마켓>.json 을 추가하세요.", file=sys.stderr)
