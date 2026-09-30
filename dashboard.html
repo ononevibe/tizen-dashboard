@@ -62,6 +62,9 @@
   .hero .big { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
   .hero .big b { font-size: 56px; font-weight: 600; line-height: 1; color: var(--os-tizen); letter-spacing: -0.02em; }
   .hero .big span { color: var(--muted); }
+  .hero .big .split { margin-left: auto; font-size: 14px; display: flex; gap: 14px; }
+  .hero .big .split b { font-size: 14px; color: var(--text); }
+  .partner-pill { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 4px; background: rgba(79,179,255,.18); color: var(--os-tizen); margin-left: 6px; }
   .share { display: flex; height: 34px; border-radius: 8px; overflow: hidden; background: var(--surface-2); }
   .share div { display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: #121820; white-space: nowrap; overflow: hidden; min-width: 0; }
   .share div.tizen-seg { box-shadow: inset 0 0 0 2px rgba(255,255,255,.35); }
@@ -139,7 +142,7 @@
 
     <section class="panel hero">
       <h2>검색 결과 내 OS 점유율 <small id="heroNote"></small></h2>
-      <div class="big"><b id="tizenShare">–</b><span>Tizen 비중 (<span id="tizenCount"></span>)</span></div>
+      <div class="big"><b id="tizenShare">–</b><span>Tizen 비중 (<span id="tizenCount"></span>)</span><span class="split" id="tizenSplit"></span></div>
       <div class="share" id="shareBar"></div>
       <div class="legend" id="legend"></div>
     </section>
@@ -165,7 +168,7 @@
     <section class="panel" style="margin-top:20px">
       <h2>제품 목록 <small id="listCount"></small></h2>
       <div class="filters">
-        <select id="fOS"><option value="">모든 OS</option></select>
+        <select id="fOS"><option value="">모든 OS</option><option value="__partner">Tizen 파트너 브랜드만</option></select>
         <select id="fBrand"><option value="">모든 브랜드</option></select>
         <select id="fQuery"><option value="">모든 검색어</option></select>
         <input id="fText" type="search" placeholder="제품명 검색">
@@ -268,6 +271,9 @@
     const tz = counts['Tizen'] || 0;
     $('tizenShare').textContent = total ? (tz / total * 100).toFixed(1) + '%' : '–';
     $('tizenCount').textContent = `${num(tz)} / ${num(total)}`;
+    const partners = P.filter(p => p.tizen_partner);
+    const partnerBrands = [...new Set(partners.map(p => p.brand))];
+    $('tizenSplit').innerHTML = tz ? `<span>Samsung <b>${num(tz - partners.length)}</b></span><span>파트너 브랜드 <b>${num(partners.length)}</b>${partnerBrands.length ? ` <span style="color:var(--muted)">(${partnerBrands.map(esc).join(', ')})</span>` : ''}</span>` : '';
     $('shareBar').innerHTML = osList.map(os => {
       const pct = counts[os] / total * 100;
       return `<div class="${os === 'Tizen' ? 'tizen-seg' : ''}" style="width:${pct}%;background:${color(os)}" title="${esc(os)} ${counts[os]}개 (${pct.toFixed(1)}%)">${pct >= 9 ? esc(os) + ' ' + pct.toFixed(0) + '%' : ''}</div>`;
@@ -345,7 +351,7 @@
   }
 
   function setupFilters(P, osList) {
-    const fill = (id, vals, cur) => { const s = $(id); const first = s.options[0].outerHTML; s.innerHTML = first + vals.map(v => `<option ${v === cur ? 'selected' : ''}>${esc(v)}</option>`).join(''); };
+    const fill = (id, vals, cur) => { const s = $(id); const keep = [...s.options].filter(o => !o.value || o.value.startsWith('__')).map(o => o.outerHTML).join(''); s.innerHTML = keep + vals.map(v => `<option ${v === cur ? 'selected' : ''}>${esc(v)}</option>`).join(''); s.value = cur; };
     fill('fOS', osList, $('fOS').value);
     fill('fBrand', [...new Set(P.map(p => p.brand).filter(Boolean))].sort(), $('fBrand').value);
     fill('fQuery', [...new Set(P.map(p => p.query).filter(Boolean))], $('fQuery').value);
@@ -354,7 +360,7 @@
   function renderProducts() {
     if (!data) return;
     const fo = $('fOS').value, fb = $('fBrand').value, fq = $('fQuery').value, ft = $('fText').value.toLowerCase();
-    let rows = (data.products || []).filter(p => (!fo || p.os === fo) && (!fb || p.brand === fb) && (!fq || p.query === fq) && (!ft || (p.title || '').toLowerCase().includes(ft)));
+    let rows = (data.products || []).filter(p => (!fo || (fo === '__partner' ? p.tizen_partner : p.os === fo)) && (!fb || p.brand === fb) && (!fq || p.query === fq) && (!ft || (p.title || '').toLowerCase().includes(ft)));
     rows.sort((a, b) => { const va = a[sort.key] ?? (sort.dir > 0 ? Infinity : -Infinity), vb = b[sort.key] ?? (sort.dir > 0 ? Infinity : -Infinity); return (va > vb ? 1 : va < vb ? -1 : 0) * sort.dir; });
     $('listCount').textContent = `${num(rows.length)}개`;
     const th = (key, label, cls = '') => `<th class="sortable ${cls} ${sort.key === key ? 'sorted' : ''}" data-key="${key}">${label}${sort.key === key ? (sort.dir > 0 ? ' ↑' : ' ↓') : ''}</th>`;
@@ -363,7 +369,7 @@
         <td class="num">${p.position ?? '–'}</td>
         <td class="title-cell"><a href="${esc(p.url || '#')}" target="_blank" rel="noopener" title="${esc(p.title)}">${esc(p.title)}</a>${p.bestseller ? ' <span class="inf">베스트셀러</span>' : ''}</td>
         <td>${esc(p.brand)}</td>
-        <td><span class="os-pill" style="--c:${color(p.os)}">${esc(p.os)}</span>${p.os_inferred ? '<span class="inf" title="제품명에 OS 표기가 없어 브랜드로 추정">추정</span>' : ''}</td>
+        <td><span class="os-pill" style="--c:${color(p.os)}">${esc(p.os)}</span>${p.os_inferred ? '<span class="inf" title="제품명에 OS 표기가 없어 브랜드로 추정">추정</span>' : ''}${p.tizen_partner ? '<span class="partner-pill">파트너</span>' : ''}</td>
         <td class="num">${p.size ? p.size + '"' : '–'}</td>
         <td class="num">${usd(p.price)}</td>
         <td class="num">${p.rating ?? '–'}</td>
