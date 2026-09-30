@@ -1,6 +1,6 @@
 """
 Amazon US TV OS 데이터 수집기
- 
+
 - 데이터 소스: Rainforest API (https://www.rainforestapi.com) — 무료 체험 키로 시작 가능
   다른 상용 API(SerpApi, Bright Data 등)를 쓰려면 fetch_rainforest()와 같은 형태의 함수를 하나 더 만들고
   PROVIDERS 딕셔너리에 등록하면 됩니다.
@@ -12,16 +12,16 @@ Amazon US TV OS 데이터 수집기
 import json, os, re, sys, time
 from datetime import datetime, timezone
 from pathlib import Path
- 
+
 try:
     import requests
 except ImportError:
     requests = None
- 
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 DATA.mkdir(exist_ok=True)
- 
+
 DEFAULT_TERMS = [
     "smart tv",
     "55 inch smart tv",
@@ -29,10 +29,11 @@ DEFAULT_TERMS = [
     "75 inch 4k tv",
     "oled tv",
     "qled tv",
+    "tizen smart tv",   # 라이선스 브랜드(RCA, Bauhn, Linsar 등) 노출용
 ]
 SEARCH_TERMS = [t.strip() for t in os.getenv("SEARCH_TERMS", "").split(",") if t.strip()] or DEFAULT_TERMS
 PAGES_PER_TERM = int(os.getenv("PAGES_PER_TERM") or 1)
- 
+
 # 수집할 아마존 마켓. 쉼표 구분 코드. 예: us,uk,de
 MARKETS = {
     "us": {"domain": "amazon.com",    "label": "Amazon US", "currency": "USD", "symbol": "$"},
@@ -44,7 +45,7 @@ MARKETS = {
     "in": {"domain": "amazon.in",     "label": "Amazon IN", "currency": "INR", "symbol": "₹"},
 }
 MARKET_CODES = [m.strip().lower() for m in (os.getenv("MARKETPLACES") or "us,uk").split(",") if m.strip()]
- 
+
 # ---------- OS 분류 ----------
 # (정규식, OS명) — 위에서부터 먼저 매칭되는 것을 채택. 제목/스펙 텍스트 기준.
 OS_PATTERNS = [
@@ -70,12 +71,17 @@ BRAND_DEFAULT_OS = {
     "insignia": "Fire TV",
     "roku": "Roku TV",
 }
+# Tizen 라이선스 브랜드 (Samsung 외). 대시보드에서 "파트너 브랜드"로 집계
+TIZEN_PARTNER_BRANDS = {"rca", "akai", "bauhn", "linsar", "vispera", "sunny", "axen", "eko", "qbell", "axdia",
+                        "tempo", "hkc", "atmaca"}
 BRAND_PATTERN = re.compile(
-    r"\b(samsung|lg|sony|tcl|hisense|vizio|amazon|insignia|toshiba|roku|philips|panasonic|sharp|westinghouse|onn|element|skyworth|xiaomi)\b",
+    r"\b(samsung|lg|sony|tcl|hisense|vizio|amazon|insignia|toshiba|roku|philips|panasonic|sharp|westinghouse|onn|element"
+    r"|skyworth|xiaomi|jvc|bush|loewe|grundig|telefunken|thomson|metz|nokia|medion|continental edison|polaroid|cello"
+    r"|rca|akai|bauhn|linsar|vispera|sunny|axen|eko|qbell|axdia|konka|aiwa|hyundai|schneider|blaupunkt|kogan|chiq|haier)\b",
     re.I,
 )
- 
- 
+
+
 def classify(title: str, brand: str, extra_text: str = ""):
     text = f"{title} {extra_text}".lower()
     for pat, name in OS_PATTERNS:
@@ -88,20 +94,25 @@ def classify(title: str, brand: str, extra_text: str = ""):
     if b in BRAND_DEFAULT_OS:
         return BRAND_DEFAULT_OS[b], True
     return "Unknown", False
- 
- 
+
+
 def extract_size(title: str):
     m = re.search(r"(\d{2,3})\s*[-\"”']?\s*(inch|in\b|”|\")", title or "", re.I)
     return int(m.group(1)) if m else None
- 
- 
+
+
 def detect_brand(title: str, brand_field: str):
     if brand_field:
         return brand_field.strip()
     m = BRAND_PATTERN.search(title or "")
-    return m.group(1).upper() if m and len(m.group(1)) <= 3 else (m.group(1).title() if m else "")
- 
- 
+    if m:
+        b = m.group(1)
+        return b.upper() if (len(b) <= 4 and b.lower() not in ("sony", "onn", "bush", "akai")) or b.lower() in ("qbell", "eko") else b.title()
+    # 목록에 없는 브랜드: 제품명 첫 단어를 브랜드로 사용
+    first = re.match(r"^[A-Za-z][A-Za-z0-9&.-]*", (title or "").strip())
+    return first.group(0) if first else ""
+
+
 # ---------- 데이터 소스 ----------
 def fetch_rainforest(domain: str, term: str, page: int):
     key = os.environ["RAINFOREST_API_KEY"]
@@ -136,20 +147,20 @@ def fetch_rainforest(domain: str, term: str, page: int):
             "bestseller": bool(it.get("bestseller")),
         })
     return items
- 
- 
+
+
 PROVIDERS = {
     "rainforest": ("RAINFOREST_API_KEY", fetch_rainforest),
 }
- 
- 
+
+
 def pick_provider():
     for name, (env, fn) in PROVIDERS.items():
         if os.getenv(env):
             return name, fn
     return None, None
- 
- 
+
+
 # ---------- 메인 ----------
 def collect_market(code: str, provider, fetch):
     mk = MARKETS[code]
@@ -179,7 +190,7 @@ def collect_market(code: str, provider, fetch):
         src = "sample"
         raw = json.loads(sample.read_text(encoding="utf-8"))
         print(f"[{code}] API 키 없음 → 샘플 데이터 {len(raw)}개 사용")
- 
+
     seen, products = set(), []
     for it in raw:
         asin = it.get("asin")
@@ -189,8 +200,9 @@ def collect_market(code: str, provider, fetch):
         brand = detect_brand(it.get("title", ""), it.get("brand", ""))
         os_name, inferred = classify(it.get("title", ""), brand)
         products.append({**it, "brand": brand, "os": os_name, "os_inferred": inferred,
+                         "tizen_partner": os_name == "Tizen" and brand.lower() != "samsung",
                          "size": extract_size(it.get("title", ""))})
- 
+
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     by_os = {}
     for p in products:
@@ -201,12 +213,12 @@ def collect_market(code: str, provider, fetch):
     summary = {k: {"count": d["count"],
                    "avg_price": round(sum(d["prices"]) / len(d["prices"]), 2) if d["prices"] else None}
                for k, d in by_os.items()}
- 
+
     snapshot = {"generated_at": now, "source": src, "market": code, "marketplace": mk["domain"],
                 "label": mk["label"], "currency": mk["currency"], "symbol": mk["symbol"],
                 "queries": SEARCH_TERMS, "summary": summary, "products": products}
     (out_dir / "tv-os.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2), encoding="utf-8")
- 
+
     hist_path = out_dir / "history.json"
     history = json.loads(hist_path.read_text(encoding="utf-8")) if hist_path.exists() else []
     day = now[:10]
@@ -215,17 +227,17 @@ def collect_market(code: str, provider, fetch):
              "avg_price": {k: v["avg_price"] for k, v in summary.items()}}
     history = ([h for h in history if h["date"] != day] + [entry])[-365:]
     hist_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
- 
+
     # 첫 번째 마켓(보통 US)은 예전 경로에도 복사해 기존 대시보드와 호환
     if code == MARKET_CODES[0]:
         (DATA / "tv-os.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2), encoding="utf-8")
         (DATA / "history.json").write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
- 
+
     print(f"[{code}] 완료: 제품 {len(products)}개, OS 분포 {entry['os_counts']}")
     return {"code": code, "label": mk["label"], "domain": mk["domain"], "currency": mk["currency"],
             "symbol": mk["symbol"], "generated_at": now, "total": len(products)}
- 
- 
+
+
 def main():
     provider, fetch = pick_provider()
     unknown = [c for c in MARKET_CODES if c not in MARKETS]
@@ -239,7 +251,7 @@ def main():
         sys.exit(1)
     (DATA / "index.json").write_text(json.dumps({"updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                                  "markets": results}, ensure_ascii=False, indent=2), encoding="utf-8")
- 
- 
+
+
 if __name__ == "__main__":
     main()
