@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T05:12:43+00:00",
+  "generated_at": "2026-09-30T05:46:03+00:00",
   "source": "sample",
   "market": "in",
   "marketplace": "amazon.in",
@@ -12,7 +12,8 @@
     "65 inch smart tv",
     "75 inch 4k tv",
     "oled tv",
-    "qled tv"
+    "qled tv",
+    "tizen smart tv"
   ],
   "summary": {
     "Tizen": {
@@ -52,6 +53,7 @@
       "query": "65 inch smart tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -69,6 +71,7 @@
       "query": "55 inch smart tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -86,6 +89,7 @@
       "query": "75 inch 4k tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 75
     },
     {
@@ -103,6 +107,7 @@
       "query": "qled tv",
       "os": "Tizen",
       "os_inferred": true,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -120,6 +125,7 @@
       "query": "smart tv",
       "os": "Tizen",
       "os_inferred": true,
+      "tizen_partner": false,
       "size": 85
     },
     {
@@ -137,6 +143,7 @@
       "query": "smart tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -154,6 +161,7 @@
       "query": "oled tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -171,6 +179,7 @@
       "query": "smart tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 77
     },
     {
@@ -188,6 +197,7 @@
       "query": "65 inch smart tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 48
     },
     {
@@ -205,6 +215,7 @@
       "query": "oled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -222,6 +233,7 @@
       "query": "smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -239,6 +251,7 @@
       "query": "oled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 77
     },
     {
@@ -256,6 +269,7 @@
       "query": "55 inch smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -273,6 +287,7 @@
       "query": "smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -290,6 +305,7 @@
       "query": "smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 75
     },
     {
@@ -307,6 +323,7 @@
       "query": "75 inch 4k tv",
       "os": "Roku TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -324,6 +341,7 @@
       "query": "75 inch 4k tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -341,6 +359,7 @@
       "query": "smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -358,6 +377,7 @@
       "query": "55 inch smart tv",
       "os": "Roku TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 50
     },
     {
@@ -375,6 +395,7 @@
       "query": "smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 75
     },
     {
@@ -392,6 +413,7 @@
       "query": "oled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -409,6 +431,7 @@
       "query": "75 inch 4k tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -426,6 +449,7 @@
       "query": "smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -443,6 +467,7 @@
       "query": "oled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -460,6 +485,7 @@
       "query": "smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     }
   ]

@@ -1,10 +1,10 @@
 [
   {
     "date": "2026-09-30",
-    "generated_at": "2026-09-30T05:12:43+00:00",
-    "total": 36,
+    "generated_at": "2026-09-30T05:46:03+00:00",
+    "total": 38,
     "os_counts": {
-      "Tizen": 5,
+      "Tizen": 7,
       "webOS": 4,
       "Google TV": 8,
       "Fire TV": 8,
@@ -12,7 +12,7 @@
       "SmartCast": 2
     },
     "avg_price": {
-      "Tizen": 1898.84,
+      "Tizen": 1453.45,
       "webOS": 1995.05,
       "Google TV": 1328.51,
       "Fire TV": 513.5,

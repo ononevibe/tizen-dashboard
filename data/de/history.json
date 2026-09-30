@@ -1,10 +1,10 @@
 [
   {
     "date": "2026-09-30",
-    "generated_at": "2026-09-30T05:12:43+00:00",
-    "total": 29,
+    "generated_at": "2026-09-30T05:46:03+00:00",
+    "total": 32,
     "os_counts": {
-      "Tizen": 5,
+      "Tizen": 8,
       "webOS": 4,
       "Google TV": 7,
       "Fire TV": 9,
@@ -12,7 +12,7 @@
       "Titan OS": 1
     },
     "avg_price": {
-      "Tizen": 1023.54,
+      "Tizen": 778.09,
       "webOS": 1071.29,
       "Google TV": 881.39,
       "Fire TV": 603.9,

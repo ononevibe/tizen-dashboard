@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T05:12:43+00:00",
+  "generated_at": "2026-09-30T05:46:03+00:00",
   "source": "sample",
   "market": "fr",
   "marketplace": "amazon.fr",
@@ -12,12 +12,13 @@
     "65 inch smart tv",
     "75 inch 4k tv",
     "oled tv",
-    "qled tv"
+    "qled tv",
+    "tizen smart tv"
   ],
   "summary": {
     "Tizen": {
-      "count": 5,
-      "avg_price": 1034.79
+      "count": 7,
+      "avg_price": 837.42
     },
     "webOS": {
       "count": 4,
@@ -56,6 +57,7 @@
       "query": "75 inch 4k tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -73,6 +75,7 @@
       "query": "oled tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -90,6 +93,7 @@
       "query": "75 inch 4k tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -107,6 +111,7 @@
       "query": "75 inch 4k tv",
       "os": "Tizen",
       "os_inferred": true,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -124,6 +129,7 @@
       "query": "oled tv",
       "os": "Tizen",
       "os_inferred": true,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -141,6 +147,7 @@
       "query": "oled tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -158,6 +165,7 @@
       "query": "55 inch smart tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -175,6 +183,7 @@
       "query": "55 inch smart tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -192,6 +201,7 @@
       "query": "oled tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -209,6 +219,7 @@
       "query": "75 inch 4k tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -226,6 +237,25 @@
       "query": "qled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
+      "size": null
+    },
+    {
+      "asin": "B0FRTZP00",
+      "title": "EKO 50 pouces 4K UHD Smart TV Tizen OS",
+      "brand": "EKO",
+      "price": 329.0,
+      "rating": 4.0,
+      "ratings_total": 110,
+      "position": 12,
+      "url": "https://www.amazon.com/dp/B0FRTZP00",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "tizen smart tv",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
       "size": null
     },
     {
@@ -235,7 +265,7 @@
       "price": 522.01,
       "rating": 4.4,
       "ratings_total": 1102,
-      "position": 12,
+      "position": 13,
       "url": "https://www.amazon.fr/dp/B0FRSAMP011",
       "image": null,
       "is_prime": true,
@@ -243,6 +273,7 @@
       "query": "oled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -252,7 +283,7 @@
       "price": 360.63,
       "rating": 4.3,
       "ratings_total": 2485,
-      "position": 13,
+      "position": 14,
       "url": "https://www.amazon.fr/dp/B0FRSAMP012",
       "image": null,
       "is_prime": true,
@@ -260,6 +291,7 @@
       "query": "55 inch smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -269,7 +301,7 @@
       "price": 234.29,
       "rating": 4.3,
       "ratings_total": 1348,
-      "position": 14,
+      "position": 15,
       "url": "https://www.amazon.fr/dp/B0FRSAMP014",
       "image": null,
       "is_prime": true,
@@ -277,6 +309,7 @@
       "query": "75 inch 4k tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -286,7 +319,7 @@
       "price": 766.55,
       "rating": 4.4,
       "ratings_total": 1383,
-      "position": 15,
+      "position": 16,
       "url": "https://www.amazon.fr/dp/B0FRSAMP015",
       "image": null,
       "is_prime": true,
@@ -294,6 +327,7 @@
       "query": "65 inch smart tv",
       "os": "VIDAA",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -303,7 +337,7 @@
       "price": 328.55,
       "rating": 4.3,
       "ratings_total": 1714,
-      "position": 16,
+      "position": 17,
       "url": "https://www.amazon.fr/dp/B0FRSAMP016",
       "image": null,
       "is_prime": true,
@@ -311,6 +345,7 @@
       "query": "55 inch smart tv",
       "os": "VIDAA",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -320,7 +355,7 @@
       "price": 411.93,
       "rating": 4.4,
       "ratings_total": 655,
-      "position": 17,
+      "position": 18,
       "url": "https://www.amazon.fr/dp/B0FRSAMP017",
       "image": null,
       "is_prime": true,
@@ -328,6 +363,25 @@
       "query": "smart tv",
       "os": "VIDAA",
       "os_inferred": false,
+      "tizen_partner": false,
+      "size": null
+    },
+    {
+      "asin": "B0FRTZP01",
+      "title": "QBELL 55 pouces 4K UHD Smart TV Tizen",
+      "brand": "QBELL",
+      "price": 359.0,
+      "rating": 4.1,
+      "ratings_total": 60,
+      "position": 19,
+      "url": "https://www.amazon.com/dp/B0FRTZP01",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "tizen smart tv",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
       "size": null
     },
     {
@@ -337,7 +391,7 @@
       "price": 848.76,
       "rating": 4.3,
       "ratings_total": 295,
-      "position": 18,
+      "position": 20,
       "url": "https://www.amazon.fr/dp/B0FRSAMP018",
       "image": null,
       "is_prime": true,
@@ -345,6 +399,7 @@
       "query": "oled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -354,7 +409,7 @@
       "price": 575.94,
       "rating": 4.4,
       "ratings_total": 1590,
-      "position": 19,
+      "position": 21,
       "url": "https://www.amazon.fr/dp/B0FRSAMP019",
       "image": null,
       "is_prime": true,
@@ -362,6 +417,7 @@
       "query": "qled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -371,7 +427,7 @@
       "price": 332.31,
       "rating": 4.3,
       "ratings_total": 1642,
-      "position": 20,
+      "position": 22,
       "url": "https://www.amazon.fr/dp/B0FRSAMP020",
       "image": null,
       "is_prime": true,
@@ -379,6 +435,7 @@
       "query": "qled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -388,7 +445,7 @@
       "price": 237.51,
       "rating": 4.3,
       "ratings_total": 2248,
-      "position": 21,
+      "position": 23,
       "url": "https://www.amazon.fr/dp/B0FRSAMP021",
       "image": null,
       "is_prime": true,
@@ -396,6 +453,7 @@
       "query": "smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -405,7 +463,7 @@
       "price": 395.2,
       "rating": 4.3,
       "ratings_total": 1358,
-      "position": 22,
+      "position": 24,
       "url": "https://www.amazon.fr/dp/B0FRSAMP022",
       "image": null,
       "is_prime": true,
@@ -413,6 +471,7 @@
       "query": "oled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -422,7 +481,7 @@
       "price": 252.83,
       "rating": 4.2,
       "ratings_total": 441,
-      "position": 23,
+      "position": 25,
       "url": "https://www.amazon.fr/dp/B0FRSAMP023",
       "image": null,
       "is_prime": true,
@@ -430,6 +489,7 @@
       "query": "75 inch 4k tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -439,7 +499,7 @@
       "price": 1699.86,
       "rating": 4.6,
       "ratings_total": 142,
-      "position": 24,
+      "position": 26,
       "url": "https://www.amazon.fr/dp/B0FRSAMP025",
       "image": null,
       "is_prime": true,
@@ -447,6 +507,7 @@
       "query": "qled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -456,7 +517,7 @@
       "price": 775.17,
       "rating": 4.4,
       "ratings_total": 711,
-      "position": 25,
+      "position": 27,
       "url": "https://www.amazon.fr/dp/B0FRSAMP026",
       "image": null,
       "is_prime": true,
@@ -464,6 +525,7 @@
       "query": "qled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -473,7 +535,7 @@
       "price": 382.87,
       "rating": 4.2,
       "ratings_total": 962,
-      "position": 26,
+      "position": 28,
       "url": "https://www.amazon.fr/dp/B0FRSAMP027",
       "image": null,
       "is_prime": true,
@@ -481,6 +543,7 @@
       "query": "oled tv",
       "os": "Titan OS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -490,7 +553,7 @@
       "price": 2046.37,
       "rating": 4.5,
       "ratings_total": 146,
-      "position": 27,
+      "position": 29,
       "url": "https://www.amazon.fr/dp/B0FRSAMP028",
       "image": null,
       "is_prime": true,
@@ -498,6 +561,7 @@
       "query": "qled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -507,7 +571,7 @@
       "price": 659.42,
       "rating": 4.3,
       "ratings_total": 206,
-      "position": 28,
+      "position": 30,
       "url": "https://www.amazon.fr/dp/B0FRSAMP029",
       "image": null,
       "is_prime": true,
@@ -515,6 +579,7 @@
       "query": "55 inch smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     },
     {
@@ -524,7 +589,7 @@
       "price": 373.79,
       "rating": 4.2,
       "ratings_total": 405,
-      "position": 29,
+      "position": 31,
       "url": "https://www.amazon.fr/dp/B0FRSAMP033",
       "image": null,
       "is_prime": true,
@@ -532,6 +597,7 @@
       "query": "smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": null
     }
   ]

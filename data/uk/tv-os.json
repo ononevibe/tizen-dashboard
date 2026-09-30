@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T05:12:43+00:00",
+  "generated_at": "2026-09-30T05:46:03+00:00",
   "source": "sample",
   "market": "uk",
   "marketplace": "amazon.co.uk",
@@ -12,12 +12,13 @@
     "65 inch smart tv",
     "75 inch 4k tv",
     "oled tv",
-    "qled tv"
+    "qled tv",
+    "tizen smart tv"
   ],
   "summary": {
     "Tizen": {
-      "count": 5,
-      "avg_price": 891.0
+      "count": 13,
+      "avg_price": 515.15
     },
     "webOS": {
       "count": 4,
@@ -46,6 +47,82 @@
   },
   "products": [
     {
+      "asin": "B0UKTZF00",
+      "title": "HYE 43 Inch Smart TV Full HD LED with Freeview Play, Samsung TV Plus",
+      "brand": "HYE",
+      "price": 189.0,
+      "rating": 4.1,
+      "ratings_total": 210,
+      "position": 1,
+      "url": "https://www.amazon.co.uk/dp/B0UKTZF00",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "[Tizen 필터]",
+      "os_forced": "Tizen",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 43
+    },
+    {
+      "asin": "B0UKTZF01",
+      "title": "HYE 55 Inch 4K UHD Smart TV, Dolby Audio, Freeview Play",
+      "brand": "HYE",
+      "price": 279.0,
+      "rating": 4.2,
+      "ratings_total": 140,
+      "position": 2,
+      "url": "https://www.amazon.co.uk/dp/B0UKTZF01",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "[Tizen 필터]",
+      "os_forced": "Tizen",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 55
+    },
+    {
+      "asin": "B0UKTZF02",
+      "title": "Cello 50 Inch 4K Ultra HD Smart TV with Freeview Play, Made in the UK",
+      "brand": "Cello",
+      "price": 329.0,
+      "rating": 4.0,
+      "ratings_total": 380,
+      "position": 3,
+      "url": "https://www.amazon.co.uk/dp/B0UKTZF02",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "[Tizen 필터]",
+      "os_forced": "Tizen",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 50
+    },
+    {
+      "asin": "B0UKTZF03",
+      "title": "Cello 32 Inch Smart HD Ready LED TV with Freeview",
+      "brand": "Cello",
+      "price": 159.0,
+      "rating": 4.0,
+      "ratings_total": 650,
+      "position": 4,
+      "url": "https://www.amazon.co.uk/dp/B0UKTZF03",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "[Tizen 필터]",
+      "os_forced": "Tizen",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 32
+    },
+    {
       "asin": "B0UKSAMP000",
       "title": "Samsung 65 Inch Q60D QLED 4K Smart TV (2024) with Tizen OS",
       "brand": "Samsung",
@@ -60,6 +137,7 @@
       "query": "75 inch 4k tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -77,6 +155,7 @@
       "query": "oled tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -94,6 +173,7 @@
       "query": "75 inch 4k tv",
       "os": "Tizen",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 77
     },
     {
@@ -111,6 +191,7 @@
       "query": "75 inch 4k tv",
       "os": "Tizen",
       "os_inferred": true,
+      "tizen_partner": false,
       "size": 50
     },
     {
@@ -128,6 +209,7 @@
       "query": "oled tv",
       "os": "Tizen",
       "os_inferred": true,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -145,6 +227,7 @@
       "query": "oled tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -162,6 +245,7 @@
       "query": "55 inch smart tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -179,6 +263,7 @@
       "query": "55 inch smart tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 48
     },
     {
@@ -196,6 +281,7 @@
       "query": "oled tv",
       "os": "webOS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 75
     },
     {
@@ -213,6 +299,7 @@
       "query": "75 inch 4k tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -230,7 +317,26 @@
       "query": "qled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
+    },
+    {
+      "asin": "B0UKTZP00",
+      "title": "Bauhn 65 Inch 4K UHD Smart TV with Tizen OS",
+      "brand": "Bauhn",
+      "price": 449.0,
+      "rating": 4.2,
+      "ratings_total": 380,
+      "position": 12,
+      "url": "https://www.amazon.com/dp/B0UKTZP00",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "tizen smart tv",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 65
     },
     {
       "asin": "B0UKSAMP011",
@@ -239,7 +345,7 @@
       "price": 449.0,
       "rating": 4.4,
       "ratings_total": 3300,
-      "position": 12,
+      "position": 13,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP011",
       "image": null,
       "is_prime": true,
@@ -247,6 +353,7 @@
       "query": "oled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -256,7 +363,7 @@
       "price": 299.0,
       "rating": 4.3,
       "ratings_total": 6200,
-      "position": 13,
+      "position": 14,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP012",
       "image": null,
       "is_prime": true,
@@ -264,6 +371,7 @@
       "query": "55 inch smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -273,7 +381,7 @@
       "price": 279.0,
       "rating": 4.3,
       "ratings_total": 4100,
-      "position": 14,
+      "position": 15,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP013",
       "image": null,
       "is_prime": true,
@@ -281,6 +389,7 @@
       "query": "smart tv",
       "os": "Roku TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 50
     },
     {
@@ -290,7 +399,7 @@
       "price": 199.0,
       "rating": 4.3,
       "ratings_total": 3700,
-      "position": 15,
+      "position": 16,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP014",
       "image": null,
       "is_prime": true,
@@ -298,6 +407,7 @@
       "query": "75 inch 4k tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -307,7 +417,7 @@
       "price": 699.0,
       "rating": 4.4,
       "ratings_total": 2800,
-      "position": 16,
+      "position": 17,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP015",
       "image": null,
       "is_prime": true,
@@ -315,6 +425,7 @@
       "query": "65 inch smart tv",
       "os": "VIDAA",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -324,7 +435,7 @@
       "price": 299.0,
       "rating": 4.3,
       "ratings_total": 7600,
-      "position": 17,
+      "position": 18,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP016",
       "image": null,
       "is_prime": true,
@@ -332,7 +443,26 @@
       "query": "55 inch smart tv",
       "os": "VIDAA",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
+    },
+    {
+      "asin": "B0UKTZP01",
+      "title": "Linsar 43 Inch Full HD Smart TV Tizen, Samsung TV Plus",
+      "brand": "Linsar",
+      "price": 229.0,
+      "rating": 4.1,
+      "ratings_total": 540,
+      "position": 19,
+      "url": "https://www.amazon.com/dp/B0UKTZP01",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "tizen smart tv",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 43
     },
     {
       "asin": "B0UKSAMP017",
@@ -341,7 +471,7 @@
       "price": 349.0,
       "rating": 4.4,
       "ratings_total": 2300,
-      "position": 18,
+      "position": 20,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP017",
       "image": null,
       "is_prime": true,
@@ -349,6 +479,7 @@
       "query": "smart tv",
       "os": "VIDAA",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 50
     },
     {
@@ -358,7 +489,7 @@
       "price": 749.0,
       "rating": 4.3,
       "ratings_total": 900,
-      "position": 19,
+      "position": 21,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP018",
       "image": null,
       "is_prime": true,
@@ -366,6 +497,7 @@
       "query": "oled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 75
     },
     {
@@ -375,7 +507,7 @@
       "price": 499.99,
       "rating": 4.4,
       "ratings_total": 3900,
-      "position": 20,
+      "position": 22,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP019",
       "image": null,
       "is_prime": true,
@@ -383,6 +515,7 @@
       "query": "qled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -392,7 +525,7 @@
       "price": 299.99,
       "rating": 4.3,
       "ratings_total": 7800,
-      "position": 21,
+      "position": 23,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP020",
       "image": null,
       "is_prime": true,
@@ -400,6 +533,7 @@
       "query": "qled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -409,7 +543,7 @@
       "price": 199.99,
       "rating": 4.3,
       "ratings_total": 9100,
-      "position": 22,
+      "position": 24,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP021",
       "image": null,
       "is_prime": true,
@@ -417,6 +551,7 @@
       "query": "smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 32
     },
     {
@@ -426,7 +561,7 @@
       "price": 349.0,
       "rating": 4.3,
       "ratings_total": 2600,
-      "position": 23,
+      "position": 25,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP022",
       "image": null,
       "is_prime": true,
@@ -434,7 +569,26 @@
       "query": "oled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
+    },
+    {
+      "asin": "B0UKTZP02",
+      "title": "Vispera 50 Inch 4K UHD Tizen Smart TV",
+      "brand": "Vispera",
+      "price": 279.0,
+      "rating": 4.0,
+      "ratings_total": 260,
+      "position": 26,
+      "url": "https://www.amazon.com/dp/B0UKTZP02",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "tizen smart tv",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 50
     },
     {
       "asin": "B0UKSAMP023",
@@ -443,7 +597,7 @@
       "price": 229.0,
       "rating": 4.2,
       "ratings_total": 1900,
-      "position": 24,
+      "position": 27,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP023",
       "image": null,
       "is_prime": true,
@@ -451,6 +605,7 @@
       "query": "75 inch 4k tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -460,7 +615,7 @@
       "price": 279.0,
       "rating": 4.3,
       "ratings_total": 1100,
-      "position": 25,
+      "position": 28,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP024",
       "image": null,
       "is_prime": true,
@@ -468,6 +623,7 @@
       "query": "75 inch 4k tv",
       "os": "Roku TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 50
     },
     {
@@ -477,7 +633,7 @@
       "price": 1499.0,
       "rating": 4.6,
       "ratings_total": 400,
-      "position": 26,
+      "position": 29,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP025",
       "image": null,
       "is_prime": true,
@@ -485,6 +641,7 @@
       "query": "qled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
     },
     {
@@ -494,7 +651,7 @@
       "price": 649.0,
       "rating": 4.4,
       "ratings_total": 1200,
-      "position": 27,
+      "position": 30,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP026",
       "image": null,
       "is_prime": true,
@@ -502,6 +659,7 @@
       "query": "qled tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -511,7 +669,7 @@
       "price": 349.0,
       "rating": 4.2,
       "ratings_total": 2400,
-      "position": 28,
+      "position": 31,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP027",
       "image": null,
       "is_prime": true,
@@ -519,6 +677,7 @@
       "query": "oled tv",
       "os": "Titan OS",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 50
     },
     {
@@ -528,7 +687,7 @@
       "price": 1699.0,
       "rating": 4.5,
       "ratings_total": 300,
-      "position": 29,
+      "position": 32,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP028",
       "image": null,
       "is_prime": true,
@@ -536,7 +695,26 @@
       "query": "qled tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 65
+    },
+    {
+      "asin": "B0UKTZP03",
+      "title": "QBELL 55 Inch 4K UHD Smart TV Tizen OS",
+      "brand": "QBELL",
+      "price": 329.0,
+      "rating": 4.1,
+      "ratings_total": 120,
+      "position": 33,
+      "url": "https://www.amazon.com/dp/B0UKTZP03",
+      "image": null,
+      "is_prime": true,
+      "bestseller": false,
+      "query": "tizen smart tv",
+      "os": "Tizen",
+      "os_inferred": false,
+      "tizen_partner": true,
+      "size": 55
     },
     {
       "asin": "B0UKSAMP029",
@@ -545,7 +723,7 @@
       "price": 599.0,
       "rating": 4.3,
       "ratings_total": 600,
-      "position": 30,
+      "position": 34,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP029",
       "image": null,
       "is_prime": true,
@@ -553,6 +731,7 @@
       "query": "55 inch smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -562,7 +741,7 @@
       "price": 329.0,
       "rating": 4.1,
       "ratings_total": 1300,
-      "position": 31,
+      "position": 35,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP030",
       "image": null,
       "is_prime": true,
@@ -570,6 +749,7 @@
       "query": "oled tv",
       "os": "Roku TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     },
     {
@@ -579,7 +759,7 @@
       "price": 249.0,
       "rating": 4.2,
       "ratings_total": 2100,
-      "position": 32,
+      "position": 36,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP031",
       "image": null,
       "is_prime": true,
@@ -587,6 +767,7 @@
       "query": "smart tv",
       "os": "Fire TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 43
     },
     {
@@ -596,7 +777,7 @@
       "price": 269.0,
       "rating": 4.0,
       "ratings_total": 1700,
-      "position": 33,
+      "position": 37,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP032",
       "image": null,
       "is_prime": true,
@@ -604,6 +785,7 @@
       "query": "oled tv",
       "os": "Roku TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 50
     },
     {
@@ -613,7 +795,7 @@
       "price": 329.0,
       "rating": 4.2,
       "ratings_total": 900,
-      "position": 34,
+      "position": 38,
       "url": "https://www.amazon.co.uk/dp/B0UKSAMP033",
       "image": null,
       "is_prime": true,
@@ -621,6 +803,7 @@
       "query": "smart tv",
       "os": "Google TV",
       "os_inferred": false,
+      "tizen_partner": false,
       "size": 55
     }
   ]
