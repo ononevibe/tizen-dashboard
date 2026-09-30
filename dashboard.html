@@ -192,7 +192,7 @@
     JPY: [[0,50000],[50000,100000],[100000,150000],[150000,300000],[300000,Infinity]],
     INR: [[0,25000],[25000,50000],[50000,100000],[100000,200000],[200000,Infinity]],
   };
-  const priceBands = cur => (BANDS[cur] || BANDS.default).map(([lo, hi]) => [lo, hi, hi === Infinity ? `${usd(lo)} 이상` : lo === 0 ? `${usd(hi)} 미만` : `${usd(lo)}–${usd(hi - 1)}`]);
+  const priceBands = cur => (BANDS[cur] || BANDS.default).map(([lo, hi]) => [lo, hi, hi === Infinity ? `${usd(lo)} 이상` : lo === 0 ? `${usd(hi)} 미만` : `${usd(lo)}–${usd(hi - 1)}`]).reverse();  // 높은 가격대부터
 
   let source = null, timer = null, data = null, histData = [], sort = { key: 'position', dir: 1 };
   let markets = [], market = new URLSearchParams(location.search).get('m') || null;
