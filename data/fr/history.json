@@ -2,24 +2,22 @@
   {
     "date": "2026-09-30",
     "generated_at": "2026-09-30T05:12:43+00:00",
-    "total": 34,
+    "total": 29,
     "os_counts": {
       "Tizen": 5,
       "webOS": 4,
       "Google TV": 7,
-      "Roku TV": 4,
-      "Fire TV": 10,
+      "Fire TV": 9,
       "VIDAA": 3,
       "Titan OS": 1
     },
     "avg_price": {
-      "Tizen": 891.0,
-      "webOS": 961.5,
-      "Google TV": 767.57,
-      "Roku TV": 289.0,
-      "Fire TV": 507.3,
-      "VIDAA": 449.0,
-      "Titan OS": 349.0
+      "Tizen": 1034.79,
+      "webOS": 1086.91,
+      "Google TV": 894.12,
+      "Fire TV": 620.29,
+      "VIDAA": 502.34,
+      "Titan OS": 382.87
     }
   }
 ]
