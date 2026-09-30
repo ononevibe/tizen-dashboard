@@ -23,6 +23,7 @@ jobs:
       - name: Run collector
         env:
           RAINFOREST_API_KEY: ${{ secrets.RAINFOREST_API_KEY }}
+          MARKETPLACES: ${{ vars.MARKETPLACES }}
           SEARCH_TERMS: ${{ vars.SEARCH_TERMS }}
           PAGES_PER_TERM: ${{ vars.PAGES_PER_TERM }}
         run: python scripts/collect.py
