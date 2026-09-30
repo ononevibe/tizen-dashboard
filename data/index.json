@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T05:46:03+00:00",
+  "updated_at": "2026-09-30T05:51:49+00:00",
   "markets": [
     {
       "code": "us",
@@ -7,8 +7,17 @@
       "domain": "amazon.com",
       "currency": "USD",
       "symbol": "$",
-      "generated_at": "2026-09-30T05:46:03+00:00",
+      "generated_at": "2026-09-30T05:51:49+00:00",
       "total": 39
+    },
+    {
+      "code": "ca",
+      "label": "Amazon CA",
+      "domain": "amazon.ca",
+      "currency": "CAD",
+      "symbol": "C$",
+      "generated_at": "2026-09-30T05:51:49+00:00",
+      "total": 38
     },
     {
       "code": "uk",
@@ -16,7 +25,7 @@
       "domain": "amazon.co.uk",
       "currency": "GBP",
       "symbol": "£",
-      "generated_at": "2026-09-30T05:46:03+00:00",
+      "generated_at": "2026-09-30T05:51:49+00:00",
       "total": 42
     },
     {
@@ -25,7 +34,7 @@
       "domain": "amazon.de",
       "currency": "EUR",
       "symbol": "€",
-      "generated_at": "2026-09-30T05:46:03+00:00",
+      "generated_at": "2026-09-30T05:51:49+00:00",
       "total": 32
     },
     {
@@ -34,17 +43,8 @@
       "domain": "amazon.fr",
       "currency": "EUR",
       "symbol": "€",
-      "generated_at": "2026-09-30T05:46:03+00:00",
+      "generated_at": "2026-09-30T05:51:49+00:00",
       "total": 31
-    },
-    {
-      "code": "ca",
-      "label": "Amazon CA",
-      "domain": "amazon.ca",
-      "currency": "CAD",
-      "symbol": "C$",
-      "generated_at": "2026-09-30T05:46:03+00:00",
-      "total": 38
     },
     {
       "code": "in",
@@ -52,7 +52,7 @@
       "domain": "amazon.in",
       "currency": "INR",
       "symbol": "₹",
-      "generated_at": "2026-09-30T05:46:03+00:00",
+      "generated_at": "2026-09-30T05:51:49+00:00",
       "total": 25
     }
   ]
