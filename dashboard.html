@@ -180,7 +180,7 @@
   const color = os => OS_COLOR[os] || 'var(--os-unknown)';
   const PRICE_BANDS = [[0,300,'$300 미만'],[300,600,'$300–599'],[600,1000,'$600–999'],[1000,2000,'$1,000–1,999'],[2000,Infinity,'$2,000 이상']];
 
-  let source = null, timer = null, data = null, history = [], sort = { key: 'position', dir: 1 };
+  let source = null, timer = null, data = null, histData = [], sort = { key: 'position', dir: 1 };
 
   function setStatus(kind, text) { $('dot').className = 'dot ' + kind; $('statusText').textContent = text; }
   function notice(html, warn) { const n = $('notice'); n.innerHTML = html; n.classList.remove('hidden'); n.classList.toggle('warn', !!warn); }
@@ -223,7 +223,7 @@
 
   // ---------- 렌더 ----------
   function render(d, h) {
-    data = d; history = h;
+    data = d; histData = h;
     const P = d.products || [];
     const total = P.length;
     const counts = {};
@@ -291,7 +291,7 @@
   }
 
   function renderTrend(osList) {
-    const H = history.filter(h => h.total);
+    const H = histData.filter(h => h.total);
     const box = $('trend');
     if (H.length < 2) {
       $('trendNote').textContent = '';
@@ -349,7 +349,7 @@
     const s = resolveSource(v);
     if (!s) { notice('<b>owner/repo</b> 형식이나 JSON 파일 URL을 입력해주세요. 브랜치를 지정하려면 <b>owner/repo@branch</b>.', true); return; }
     source = s; hideNotice();
-    const url = new URL(location.href); url.searchParams.set('src', v.trim()); history.replaceState(null, '', url);
+    const url = new URL(location.href); url.searchParams.set('src', v.trim()); window.history.replaceState(null, '', url);
     $('main').classList.remove('hidden');
     load(); schedule();
   }
@@ -367,7 +367,10 @@
   });
   document.addEventListener('visibilitychange', () => { if (!document.hidden && source) load(); });
 
-  const initial = new URLSearchParams(location.search).get('src');
+  // GitHub Pages(owner.github.io/repo/)에 올려두면 자기 저장소를 자동으로 연결
+  const gh = location.hostname.match(/^([\w-]+)\.github\.io$/);
+  const autoSrc = gh && location.pathname.split('/')[1] ? `${gh[1]}/${location.pathname.split('/')[1]}` : null;
+  const initial = new URLSearchParams(location.search).get('src') || autoSrc;
   if (initial) { $('srcInput').value = initial; connect(initial); }
   else notice('이 파일이 들어 있는 GitHub 저장소를 <b>owner/repo</b>로 입력하면 <code>data/tv-os.json</code>을 읽어 표시하고, 선택한 간격으로 자동 갱신합니다. GitHub 없이 확인만 하려면 <b>파일 열기</b>로 <code>data/tv-os.json</code>을 불러오세요.');
 })();
