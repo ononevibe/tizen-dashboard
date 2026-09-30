@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amazon US TV OS 대시보드</title>
+<title>OS Market Intelligence</title>
+<meta property="og:title" content="OS Market Intelligence">
+<meta name="description" content="Amazon 마켓별 TV OS 현황 대시보드">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -257,6 +259,7 @@
     data = d; histData = h;
     SYM = d.symbol || (d.currency === 'GBP' ? '£' : d.currency === 'EUR' ? '€' : '$');
     $('title').textContent = `${d.label || 'Amazon US'} · TV OS 현황`;
+    document.title = `OS Market Intelligence · ${d.label || ''}`.replace(/ · $/, '');
     $('curLabel').textContent = d.currency || 'USD';
     const P = d.products || [];
     const total = P.length;
