@@ -46,6 +46,21 @@ MARKETS = {
 }
 MARKET_CODES = [m.strip().lower() for m in (os.getenv("MARKETPLACES") or "us,uk").split(",") if m.strip()]
 
+# 아마존 자체 "운영체제" 필터가 적용된 검색 URL. 여기서 나온 제품은 제품명과 상관없이 해당 OS로 확정 분류.
+# 아마존 검색 페이지에서 OS 필터를 건 뒤 주소를 복사해 넣으면 됩니다 (qid, crid 같은 세션 값은 지워도 됨).
+# 저장소 Variables 에 FILTER_URLS 를 JSON 으로 넣으면 아래 기본값 대신 사용됩니다.
+DEFAULT_FILTER_URLS = {
+    "uk": [
+        {"os": "Tizen", "pages": 2,
+         "url": "https://www.amazon.co.uk/s?k=tv&rh=p_n_g-101016028402111%3A205632524031&dc"},
+    ],
+}
+try:
+    FILTER_URLS = json.loads(os.getenv("FILTER_URLS") or "null") or DEFAULT_FILTER_URLS
+except json.JSONDecodeError:
+    print("FILTER_URLS 변수가 올바른 JSON이 아닙니다. 기본값을 사용합니다.", file=sys.stderr)
+    FILTER_URLS = DEFAULT_FILTER_URLS
+
 # ---------- OS 분류 ----------
 # (정규식, OS명) — 위에서부터 먼저 매칭되는 것을 채택. 제목/스펙 텍스트 기준.
 OS_PATTERNS = [
@@ -73,11 +88,11 @@ BRAND_DEFAULT_OS = {
 }
 # Tizen 라이선스 브랜드 (Samsung 외). 대시보드에서 "파트너 브랜드"로 집계
 TIZEN_PARTNER_BRANDS = {"rca", "akai", "bauhn", "linsar", "vispera", "sunny", "axen", "eko", "qbell", "axdia",
-                        "tempo", "hkc", "atmaca"}
+                        "hye", "cello", "tempo", "hkc", "atmaca"}
 BRAND_PATTERN = re.compile(
     r"\b(samsung|lg|sony|tcl|hisense|vizio|amazon|insignia|toshiba|roku|philips|panasonic|sharp|westinghouse|onn|element"
     r"|skyworth|xiaomi|jvc|bush|loewe|grundig|telefunken|thomson|metz|nokia|medion|continental edison|polaroid|cello"
-    r"|rca|akai|bauhn|linsar|vispera|sunny|axen|eko|qbell|axdia|konka|aiwa|hyundai|schneider|blaupunkt|kogan|chiq|haier)\b",
+    r"|rca|akai|bauhn|linsar|vispera|sunny|axen|eko|qbell|axdia|konka|aiwa|hyundai|schneider|blaupunkt|kogan|chiq|haier|hye|cello|ferguson|mitchell & brown|avtex|veltech)\b",
     re.I,
 )
 
@@ -114,17 +129,13 @@ def detect_brand(title: str, brand_field: str):
 
 
 # ---------- 데이터 소스 ----------
-def fetch_rainforest(domain: str, term: str, page: int):
+def fetch_rainforest(domain: str, term: str, page: int, url: str = None):
     key = os.environ["RAINFOREST_API_KEY"]
-    params = {
-        "api_key": key,
-        "type": "search",
-        "amazon_domain": domain,
-        "search_term": term,
-        "category_id": "aps",
-        "page": page,
-        "output": "json",
-    }
+    params = {"api_key": key, "type": "search", "page": page, "output": "json"}
+    if url:
+        params["url"] = url          # 아마존 검색 URL 그대로 (필터 포함)
+    else:
+        params.update({"amazon_domain": domain, "search_term": term, "category_id": "aps"})
     r = requests.get("https://api.rainforestapi.com/request", params=params, timeout=60)
     r.raise_for_status()
     body = r.json()
@@ -180,6 +191,18 @@ def collect_market(code: str, provider, fetch):
                     time.sleep(1)
                 except Exception as e:
                     print(f"[{code}/{provider}] {term!r} p{page} 실패: {e}", file=sys.stderr)
+        for f in FILTER_URLS.get(code, []):
+            for page in range(1, int(f.get("pages", 1)) + 1):
+                try:
+                    items = fetch(mk["domain"], None, page, url=f["url"])
+                    for it in items:
+                        it["query"] = f"[{f['os']} 필터]"
+                        it["os_forced"] = f["os"]
+                    raw.extend(items)
+                    print(f"[{code}/{provider}] {f['os']} 필터 URL p{page}: {len(items)}개")
+                    time.sleep(1)
+                except Exception as e:
+                    print(f"[{code}/{provider}] 필터 URL p{page} 실패: {e}", file=sys.stderr)
     else:
         sample = DATA / f"sample-products-{code}.json"
         if not sample.exists():
@@ -192,6 +215,7 @@ def collect_market(code: str, provider, fetch):
         print(f"[{code}] API 키 없음 → 샘플 데이터 {len(raw)}개 사용")
 
     seen, products = set(), []
+    raw.sort(key=lambda x: 0 if x.get("os_forced") else 1)   # 필터 결과 우선
     for it in raw:
         asin = it.get("asin")
         if not asin or asin in seen:
@@ -199,6 +223,9 @@ def collect_market(code: str, provider, fetch):
         seen.add(asin)
         brand = detect_brand(it.get("title", ""), it.get("brand", ""))
         os_name, inferred = classify(it.get("title", ""), brand)
+        if it.get("os_forced"):
+            os_name, inferred = it["os_forced"], False
+        # 필터 URL 결과가 일반 검색 결과와 겹치면 필터 쪽 분류를 우선
         products.append({**it, "brand": brand, "os": os_name, "os_inferred": inferred,
                          "tizen_partner": os_name == "Tizen" and brand.lower() != "samsung",
                          "size": extract_size(it.get("title", ""))})
