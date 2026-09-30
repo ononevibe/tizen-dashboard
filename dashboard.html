@@ -14,7 +14,7 @@
     /* OS 색상 */
     --os-tizen: #4fb3ff; --os-webos: #c16bd9; --os-google: #6ccf8e; --os-android: #3f9d6b;
     --os-fire: #f2b84b; --os-roku: #a68cff; --os-smartcast: #ff8e6b; --os-vidaa: #59c9c0;
-    --os-xumo: #e0a0c8; --os-whale: #7fa8ff; --os-unknown: #6b7688;
+    --os-xumo: #e0a0c8; --os-whale: #7fa8ff; --os-titan: #ffb5d1; --os-unknown: #6b7688;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--text); font-family: "IBM Plex Sans KR", "Pretendard", -apple-system, system-ui, sans-serif; font-size: 15px; line-height: 1.5; }
@@ -46,7 +46,11 @@
   .notice b, .notice code { color: var(--text); }
   .hidden { display: none !important; }
 
-  .head { margin: 28px 0 18px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 22px; }
+  .tab { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 16px; cursor: pointer; color: var(--muted); }
+  .tab:hover { color: var(--text); }
+  .tab.on { background: var(--accent); border-color: var(--accent); color: #1b2230; font-weight: 600; }
+  .head { margin: 18px 0 18px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
   .head h1 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
   .head .sub { color: var(--muted); font-size: 14px; }
 
@@ -127,8 +131,9 @@
   <div id="notice" class="notice hidden"></div>
 
   <main id="main" class="hidden">
+    <div class="tabs" id="tabs"></div>
     <div class="head">
-      <h1>Amazon US · TV OS 현황</h1>
+      <h1 id="title">TV OS 현황</h1>
       <span class="sub" id="subInfo"></span>
     </div>
 
@@ -147,7 +152,7 @@
         <div class="tbl-wrap"><table id="brandTable"></table></div>
       </div>
       <div class="panel">
-        <h2>가격대별 OS 분포 <small>USD</small></h2>
+        <h2>가격대별 OS 분포 <small id="curLabel"></small></h2>
         <div class="tbl-wrap"><table id="priceTable"></table></div>
       </div>
     </section>
@@ -175,12 +180,19 @@
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const num = n => Number(n ?? 0).toLocaleString('ko-KR');
-  const usd = n => n == null ? '–' : '$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
-  const OS_COLOR = { 'Tizen': 'var(--os-tizen)', 'webOS': 'var(--os-webos)', 'Google TV': 'var(--os-google)', 'Android TV': 'var(--os-android)', 'Fire TV': 'var(--os-fire)', 'Roku TV': 'var(--os-roku)', 'SmartCast': 'var(--os-smartcast)', 'VIDAA': 'var(--os-vidaa)', 'Xumo TV': 'var(--os-xumo)', 'WhaleOS': 'var(--os-whale)', 'Unknown': 'var(--os-unknown)' };
+  let SYM = '$';
+  const usd = n => n == null ? '–' : SYM + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  const OS_COLOR = { 'Tizen': 'var(--os-tizen)', 'webOS': 'var(--os-webos)', 'Google TV': 'var(--os-google)', 'Android TV': 'var(--os-android)', 'Fire TV': 'var(--os-fire)', 'Roku TV': 'var(--os-roku)', 'SmartCast': 'var(--os-smartcast)', 'VIDAA': 'var(--os-vidaa)', 'Xumo TV': 'var(--os-xumo)', 'WhaleOS': 'var(--os-whale)', 'Titan OS': 'var(--os-titan)', 'Unknown': 'var(--os-unknown)' };
   const color = os => OS_COLOR[os] || 'var(--os-unknown)';
-  const PRICE_BANDS = [[0,300,'$300 미만'],[300,600,'$300–599'],[600,1000,'$600–999'],[1000,2000,'$1,000–1,999'],[2000,Infinity,'$2,000 이상']];
+  const BANDS = {
+    default: [[0,300],[300,600],[600,1000],[1000,2000],[2000,Infinity]],
+    JPY: [[0,50000],[50000,100000],[100000,150000],[150000,300000],[300000,Infinity]],
+    INR: [[0,25000],[25000,50000],[50000,100000],[100000,200000],[200000,Infinity]],
+  };
+  const priceBands = cur => (BANDS[cur] || BANDS.default).map(([lo, hi]) => [lo, hi, hi === Infinity ? `${usd(lo)} 이상` : lo === 0 ? `${usd(hi)} 미만` : `${usd(lo)}–${usd(hi - 1)}`]);
 
   let source = null, timer = null, data = null, histData = [], sort = { key: 'position', dir: 1 };
+  let markets = [], market = new URLSearchParams(location.search).get('m') || null;
 
   function setStatus(kind, text) { $('dot').className = 'dot ' + kind; $('statusText').textContent = text; }
   function notice(html, warn) { const n = $('notice'); n.innerHTML = html; n.classList.remove('hidden'); n.classList.toggle('warn', !!warn); }
@@ -192,15 +204,14 @@
     if (!v) return null;
     if (/^https?:\/\//.test(v)) {
       let m = v.match(/^https?:\/\/github\.com\/([\w.-]+)\/([\w.-]+)(?:\/blob\/([\w.-]+)\/(.+))?/);
-      if (m) return m[4] ? { data: `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4]}`, history: `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4].replace(/[^/]+$/, 'history.json')}`, label: `${m[1]}/${m[2]}` } : fromRepo(m[1], m[2], 'main');
-      return { data: v, history: v.replace(/[^/]+$/, 'history.json'), label: v.replace(/^https?:\/\//, '').slice(0, 60) };
+      if (m) return m[4] ? { base: `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4].replace(/[^/]*$/, '')}`, label: `${m[1]}/${m[2]}` } : fromRepo(m[1], m[2], 'main');
+      return { base: v.replace(/[^/]*$/, ''), label: v.replace(/^https?:\/\//, '').slice(0, 60) };
     }
     const m = v.replace(/\.git$/, '').match(/^([\w.-]+)\/([\w.-]+)(?:@([\w.-]+))?$/);
     return m ? fromRepo(m[1], m[2], m[3] || 'main') : null;
   }
   function fromRepo(o, r, b) {
-    const base = `https://raw.githubusercontent.com/${o}/${r}/${b}/data/`;
-    return { data: base + 'tv-os.json', history: base + 'history.json', label: `${o}/${r}` };
+    return { base: `https://raw.githubusercontent.com/${o}/${r}/${b}/data/`, label: `${o}/${r}` };
   }
 
   async function load() {
@@ -208,10 +219,16 @@
     setStatus('loading', '불러오는 중…');
     try {
       const bust = '?t=' + Date.now();
-      const [d, h] = await Promise.all([
-        fetch(source.data + bust, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
-        fetch(source.history + bust, { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
-      ]);
+      const get = (path, opt) => fetch(source.base + path + bust, { cache: 'no-store' }).then(r => { if (!r.ok) { if (opt) return null; throw new Error(`HTTP ${r.status}`); } return r.json(); }).catch(e => { if (opt) return null; throw e; });
+      const idx = await get('index.json', true);
+      markets = idx?.markets || [];
+      let dir = '';
+      if (markets.length) {
+        if (!market || !markets.some(m => m.code === market)) market = markets[0].code;
+        dir = market + '/';
+      }
+      renderTabs();
+      const [d, h] = await Promise.all([get(dir + 'tv-os.json'), get(dir + 'history.json', true)]);
       render(d, Array.isArray(h) ? h : []);
       hideNotice();
       setStatus('live', `${new Date().toLocaleTimeString('ko-KR')} 갱신 · ${source.label}`);
@@ -222,8 +239,22 @@
   }
 
   // ---------- 렌더 ----------
+  function renderTabs() {
+    const t = $('tabs');
+    t.classList.toggle('hidden', markets.length < 2);
+    t.innerHTML = markets.map(m => `<button type="button" class="tab ${m.code === market ? 'on' : ''}" data-code="${esc(m.code)}">${esc(m.label)}</button>`).join('');
+    t.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+      market = b.dataset.code;
+      const url = new URL(location.href); url.searchParams.set('m', market); window.history.replaceState(null, '', url);
+      load();
+    }));
+  }
+
   function render(d, h) {
     data = d; histData = h;
+    SYM = d.symbol || (d.currency === 'GBP' ? '£' : d.currency === 'EUR' ? '€' : '$');
+    $('title').textContent = `${d.label || 'Amazon US'} · TV OS 현황`;
+    $('curLabel').textContent = d.currency || 'USD';
     const P = d.products || [];
     const total = P.length;
     const counts = {};
@@ -272,7 +303,7 @@
       </tr>`).join('') + '</tbody>';
 
     // 가격대 × OS
-    const bandRows = PRICE_BANDS.map(([lo, hi, label]) => {
+    const bandRows = priceBands(d.currency).map(([lo, hi, label]) => {
       const ps = P.filter(p => p.price != null && p.price >= lo && p.price < hi);
       const m = {}; ps.forEach(p => m[p.os] = (m[p.os] || 0) + 1);
       return [label, ps.length, m];

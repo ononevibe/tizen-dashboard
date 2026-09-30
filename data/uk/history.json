@@ -1,0 +1,25 @@
+[
+  {
+    "date": "2026-09-30",
+    "generated_at": "2026-09-30T03:25:06+00:00",
+    "total": 34,
+    "os_counts": {
+      "Tizen": 5,
+      "webOS": 4,
+      "Google TV": 7,
+      "Roku TV": 4,
+      "Fire TV": 10,
+      "VIDAA": 3,
+      "Unknown": 1
+    },
+    "avg_price": {
+      "Tizen": 891.0,
+      "webOS": 961.5,
+      "Google TV": 767.57,
+      "Roku TV": 289.0,
+      "Fire TV": 507.3,
+      "VIDAA": 449.0,
+      "Unknown": 349.0
+    }
+  }
+]
