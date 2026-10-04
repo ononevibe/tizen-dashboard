@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T11:18:23+00:00",
+  "updated_at": "2026-10-04T18:11:18+00:00",
   "markets": [
     {
       "code": "us",
@@ -7,7 +7,7 @@
       "domain": "amazon.com",
       "currency": "USD",
       "symbol": "$",
-      "generated_at": "2026-10-04T11:18:23+00:00",
+      "generated_at": "2026-10-04T18:11:18+00:00",
       "total": 39
     },
     {
@@ -16,7 +16,7 @@
       "domain": "amazon.ca",
       "currency": "CAD",
       "symbol": "C$",
-      "generated_at": "2026-10-04T11:18:23+00:00",
+      "generated_at": "2026-10-04T18:11:18+00:00",
       "total": 38
     },
     {
@@ -25,7 +25,7 @@
       "domain": "amazon.co.uk",
       "currency": "GBP",
       "symbol": "£",
-      "generated_at": "2026-10-04T11:18:23+00:00",
+      "generated_at": "2026-10-04T18:11:18+00:00",
       "total": 42
     },
     {
@@ -34,7 +34,7 @@
       "domain": "amazon.de",
       "currency": "EUR",
       "symbol": "€",
-      "generated_at": "2026-10-04T11:18:23+00:00",
+      "generated_at": "2026-10-04T18:11:18+00:00",
       "total": 32
     },
     {
@@ -43,7 +43,7 @@
       "domain": "amazon.fr",
       "currency": "EUR",
       "symbol": "€",
-      "generated_at": "2026-10-04T11:18:23+00:00",
+      "generated_at": "2026-10-04T18:11:18+00:00",
       "total": 31
     },
     {
@@ -52,7 +52,7 @@
       "domain": "amazon.in",
       "currency": "INR",
       "symbol": "₹",
-      "generated_at": "2026-10-04T11:18:23+00:00",
+      "generated_at": "2026-10-04T18:11:18+00:00",
       "total": 25
     }
   ]
