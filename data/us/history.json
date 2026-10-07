@@ -145,5 +145,26 @@
       "Roku TV": 330.66,
       "SmartCast": 473.0
     }
+  },
+  {
+    "date": "2026-10-07",
+    "generated_at": "2026-10-07T00:10:34+00:00",
+    "total": 39,
+    "os_counts": {
+      "Tizen": 8,
+      "webOS": 4,
+      "Google TV": 8,
+      "Fire TV": 8,
+      "Roku TV": 9,
+      "SmartCast": 2
+    },
+    "avg_price": {
+      "Tizen": 994.99,
+      "webOS": 1467.74,
+      "Google TV": 970.74,
+      "Fire TV": 383.74,
+      "Roku TV": 330.66,
+      "SmartCast": 473.0
+    }
   }
 ]
