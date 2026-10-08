@@ -182,5 +182,28 @@
       "VIDAA": 449.0,
       "Titan OS": 349.0
     }
+  },
+  {
+    "date": "2026-10-08",
+    "generated_at": "2026-10-08T00:09:44+00:00",
+    "total": 42,
+    "os_counts": {
+      "Tizen": 13,
+      "webOS": 4,
+      "Google TV": 7,
+      "Roku TV": 4,
+      "Fire TV": 10,
+      "VIDAA": 3,
+      "Titan OS": 1
+    },
+    "avg_price": {
+      "Tizen": 515.15,
+      "webOS": 961.5,
+      "Google TV": 767.57,
+      "Roku TV": 289.0,
+      "Fire TV": 507.3,
+      "VIDAA": 449.0,
+      "Titan OS": 349.0
+    }
   }
 ]

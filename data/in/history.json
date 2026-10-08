@@ -150,5 +150,24 @@
       "Fire TV": 42117.17,
       "Roku TV": 20996.0
     }
+  },
+  {
+    "date": "2026-10-08",
+    "generated_at": "2026-10-08T00:09:44+00:00",
+    "total": 25,
+    "os_counts": {
+      "Tizen": 5,
+      "webOS": 4,
+      "Google TV": 8,
+      "Fire TV": 6,
+      "Roku TV": 2
+    },
+    "avg_price": {
+      "Tizen": 127754.8,
+      "webOS": 132008.25,
+      "Google TV": 88826.12,
+      "Fire TV": 42117.17,
+      "Roku TV": 20996.0
+    }
   }
 ]

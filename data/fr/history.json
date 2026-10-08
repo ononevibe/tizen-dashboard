@@ -166,5 +166,26 @@
       "VIDAA": 502.34,
       "Titan OS": 382.87
     }
+  },
+  {
+    "date": "2026-10-08",
+    "generated_at": "2026-10-08T00:09:44+00:00",
+    "total": 31,
+    "os_counts": {
+      "Tizen": 7,
+      "webOS": 4,
+      "Google TV": 7,
+      "Fire TV": 9,
+      "VIDAA": 3,
+      "Titan OS": 1
+    },
+    "avg_price": {
+      "Tizen": 837.42,
+      "webOS": 1086.91,
+      "Google TV": 894.12,
+      "Fire TV": 620.29,
+      "VIDAA": 502.34,
+      "Titan OS": 382.87
+    }
   }
 ]
